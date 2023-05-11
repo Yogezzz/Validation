@@ -1,0 +1,110 @@
+<html>
+
+<head>
+
+<title>loginapplication</title>
+
+<script>
+
+   function nullcheck(){
+   var uname=document.loginfrm.username.value;
+   var pwd=document.loginfrm.password.value;
+   var phn=document.loginfrm.phonenumber.value;
+   var email=document.loginfrm.email.value;
+
+   if(uname==""||uname==null){
+   alert("username cant be null");
+   return false;
+   }
+   
+   else if(pwd==""||pwd==null){
+   alert("password cant be null");
+   return false;
+   }
+   
+   else if(phn==""||phn==null){
+   alert("phonenumber cant be null");
+   return false;
+   }
+   
+   else if(email==""||email==null){
+   alert("email cant be null");
+   return false;
+   }
+   }
+   
+   function checkpassword(){
+        var password=document.loginfrm.password.value;
+        var paswd= /^(?=.*[0-9])(?=.*[!@#$%^&])[a-zA-Z0-9!@#$%^&]{7,15}$/;
+        if(!password.match(paswd))
+        {
+        	alert('password must contain atleast one number and one special character[7,15]');
+        	return false;
+        	}
+        }
+        
+   function checkemail(){
+         var email=document.loginfrm.email.value;
+         var mail=/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+         if(!email.match(mail))
+         {
+             alert('email must contain @ and .');
+             return false;
+             }
+         }
+        
+    function validate(obj,event){
+        var inp=obj.name;       //retrive the our text field name
+        if(inp=="username"){
+        var k=event.keyCode;    //retrive the our text field value
+        if((k >= 33 && k <= 64)||(k >= 91 && k <= 96)){
+           alert("Numbers and special characters not allow");
+           return false;
+           }
+        }
+        else if(inp=="phonenumber"){
+        var k=event.keyCode;    
+        if(k >31 && (k < 48||k > 57)){
+           alert("alpha and special characters not allow");
+           return false;
+           }
+         }
+        else if(inp=="password"){
+        var k=event.keyCode;    
+        if(k ==32 || (k >=42 && k <= 47)){
+           alert("special characters not allow");
+           return false;
+           }
+           }
+          }
+    function validateSubmit(){
+         var retvalue;
+         
+         retvalue = nullcheck();
+         if(retvalue == false){ return retvalue; }     
+         
+         retvalue=checkpassword();
+         if(retvalue == false){ return retvalue; } 
+         
+         retvalue=checkemail();
+         if(retvalue == false){ return retvalue; }   
+     }
+   
+   </script>
+   </head>
+
+<body>
+
+
+   <form action="Welcome.html" method="post" name="loginfrm">
+ 
+ username:<input type="text" name="username" onkeypress="return validate(this,event)"/><br>
+ password:<input type="text" name="password" onkeypress="return validate(this,event)"/><br>
+ phoneno:<input type="text" maxlength=10 name="phonenumber" onkeypress="return validate(this,event)"/><br>
+ Email:<input type="text" name="email"/><br>
+ <input type="submit" value="login" onClick="return validateSubmit()"/>
+ 
+ </form>
+ </body>
+
+</html>
